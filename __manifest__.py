@@ -22,7 +22,9 @@
     "depends": ["point_of_sale"],
     "application": True,
     "data": [
-        'views/res_config_settings_views.xml'
+        'security/ir.model.access.csv',
+         'views/stripe_connector_views.xml',
+        'views/res_config_settings_views.xml',
     ],
     'assets': {
         'point_of_sale._assets_pos': [
