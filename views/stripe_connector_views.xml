@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <record id="view_stripe_report_form" model="ir.ui.view">
+    <field name="name">stripe.report.form</field>
+    <field name="model">stripe.report</field>
+    <field name="arch" type="xml">
+      <form string="Stripe Charges Report">
+         <header>
+            <!-- Button calls the fetch_charges method -->
+            <button name="fetch_charges"
+                    string="Charger les dernieres Transactions"
+                    type="object"
+                    class="btn-primary"/>
+          </header>
+        <sheet>
+          <group>
+              <field name="name" />
+            <field name="date_start" widget="date"/>
+          </group>
+          <group>
+            <field name="date_end" widget="date"/>
+          </group>
+
+          <notebook>
+            <page string=" Stripe Transcations">
+              <field name="charge_ids">
+                <list string="Stripe Transcations" editable="bottom">
+                  <field name="transaction_id"/>
+                  <field name="created"/>
+                  <field name="amount"/>
+                  <field name="currency"/>
+                  <field name="status"/>
+                  <field name="payment_method_type"/>
+                  <field name="funding"/>
+                  <field name="brand"/>
+                  <field name="last4"/>
+                  <field name="receipt_number"/>
+                  <field name="terminal_id"/>
+                </list>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+
+  <record id="view_stripe_report_tree" model="ir.ui.view">
+        <field name="name">stripe.report.view.tree</field>
+        <field name="model">stripe.report</field>
+        <field name="arch" type="xml">
+            <list string="Stripe Transcations">
+                <field name="name" />
+                <field name="date_start"/>
+                 <field name="date_end"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Add action window for `pos.receipt` -->
+    <record id="action_stripe_report" model="ir.actions.act_window">
+        <field name="name">Stripe Transactions</field>
+        <field name="res_model">stripe.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+  <menuitem name="Stripe Connector" id="menu_stripe_connector_v3"
+            parent="point_of_sale.menu_point_config_product"
+            action="pos_dual_discount.action_stripe_report"
+            sequence="50"/>
+
+</odoo>
